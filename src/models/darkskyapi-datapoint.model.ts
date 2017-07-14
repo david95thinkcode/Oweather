@@ -8,8 +8,7 @@ export class DarkSkyApiDataPoint {
     nearestStormDistance: number;
     precipIntensity: number;
     precipIntensityError: number;
-    precipProbability: number;
-    
+    precipProbability: number;    
 
     apparentTemperature: number;
     apparentTemperatureMax: number;
@@ -26,5 +25,8 @@ export class DarkSkyApiDataPoint {
     visibility: number;
     pressure: number;
     ozone: number;
+
+    css_icon_class: string;
+    readableday: string;
 
 }
