@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+
 import { Geolocation }                      from '@ionic-native/geolocation';
 
 import { DarkSkyApiResponse }               from '../../models/darkskyapi-response.model';
@@ -10,18 +11,14 @@ import { IonicNativeGeoposition }           from '../../models/ionicnative-geopo
 import { DarkSkyApiService }                from '../../services/darkskyapi.service';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-nextweek',
+  templateUrl: 'nextweek.html'
 })
-
-export class HomePage {
-  //Object
+export class NextWeekPage {
   currentPosition: IonicNativeGeoposition = new IonicNativeGeoposition();
   currentForecast: DarkSkyApiDataPoint = new DarkSkyApiDataPoint();
   dailyForcastFornextWeek: DarkSkyApiDataBlock = new DarkSkyApiDataBlock();
-  hourlyForcastFornextTwoDays: DarkSkyApiDataBlock = new DarkSkyApiDataBlock();
-  minutlyForcastFornextHour: DarkSkyApiDataBlock = new DarkSkyApiDataBlock();
-
+  
   response: DarkSkyApiResponse = new DarkSkyApiResponse();
 
   constructor(public navCtrl: NavController, private geolocation: Geolocation, private darkSkyApiService: DarkSkyApiService) {
@@ -36,12 +33,12 @@ export class HomePage {
 
   /** Put value inside response to hydrate declared objects*/
   private hydrate() {
-      console.log(this.response);
       this.currentForecast = this.response.currently;
-      console.log(this.currentForecast);
       this.currentForecast.placeName = this.response.timezone;
       this.dailyForcastFornextWeek = this.response.daily;
-      this.hourlyForcastFornextTwoDays = this.response.hourly;
+      //On retire le premier élement car ce dernier représente les prévision actuelles
+      this.dailyForcastFornextWeek.data.splice(0,1);
+      console.log(this.dailyForcastFornextWeek);
   }
 
   /** Use Native Gelolcation to get device geoposition */
@@ -62,5 +59,4 @@ export class HomePage {
     })
 
   }
-
 }

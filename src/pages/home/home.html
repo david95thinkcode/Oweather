@@ -3,16 +3,51 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title text-center>  {{ currentForecast.placeName }} 
+      <ion-icon name="pin"></ion-icon>
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  
+  <ion-card>
+    <ion-card-header text-center> 
+      {{ currentForecast.temperature }}°
+      <p> {{ currentForecast.summary }} </p>
+      
+    </ion-card-header>
+    <ion-card-content>      
+      <ion-list>
+        <ion-item>
+          <ion-icon name="water" item-start></ion-icon>
+            <h2> Humidité </h2>
+          <span item-end> {{ currentForecast.humidity }} </span>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="flag" item-start></ion-icon>
+            <h2> Vitesse du vent </h2> 
+        <span item-end> {{ currentForecast.windSpeed }} km/h</span> 
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <ion-card>
+    <ion-card-header>
+      Choses que vous pouvez faire 
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <!-- Utilisez un ngfor pour afficher les choses à faire en fonction de la température 
+        <ion-item>
+          <ion-icon name="leaf" item-start></ion-icon>
+            Herbology
+          <ion-icon name="rose" item-end></ion-icon>
+        </ion-item> -->
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  
 </ion-content>
