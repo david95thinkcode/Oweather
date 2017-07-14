@@ -1,14 +1,16 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { Component, ViewChild }         from '@angular/core';
+import { Nav, Platform }                from 'ionic-angular';
+import { StatusBar }                    from '@ionic-native/status-bar';
+import { SplashScreen }                 from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { NextWeekPage } from '../pages/nextweek/nextweek';
+import { HomePage }                     from '../pages/home/home';
+import { NextWeekPage }                 from '../pages/nextweek/nextweek';
+import { ContactPage  }                 from  '../pages/contact/contact'
 
 @Component({
   templateUrl: 'app.html'
 })
+
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
@@ -22,7 +24,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Today', component: HomePage },
-      { title: 'Next Week', component: NextWeekPage }
+      { title: 'Next Week', component: NextWeekPage },
+      { title: 'About us', component: ContactPage }
     ];
 
   }
