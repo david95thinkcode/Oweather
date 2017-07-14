@@ -38,7 +38,6 @@ export class HomePage {
   private hydrate() {
       console.log(this.response);
       this.currentForecast = this.response.currently;
-      console.log(this.currentForecast);
       this.currentForecast.placeName = this.response.timezone;
       this.dailyForcastFornextWeek = this.response.daily;
       this.hourlyForcastFornextTwoDays = this.response.hourly;
