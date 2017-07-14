@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="black">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -9,17 +9,21 @@
 
 <ion-content>
   <ion-card>
-    <ion-card-header>
-      {{ dailyForcastFornextWeek.summary }}
-    </ion-card-header>
+    <ion-card-header text-center class="cardHead"> EN BREF, </ion-card-header>
+    <ion-card-content>
+      <h2 text-center class="weekDescription"> {{ dailyForcastFornextWeek.summary }} </h2>
+    </ion-card-content>
   </ion-card>
   <ion-list>
     
-    <ion-item *ngFor="let day of dailyForcastFornextWeek.data" class="">
-      
-        <h2> {{ day.summary }} </h2>
+    <ion-item class="ionitems" *ngFor="let day of dailyForcastFornextWeek.data" class="">
+        <!--<i class="{{ day.css_icon_class }}" item-start></i>
+         -->
+        <ion-icon name="{{ day.css_icon_class }}" item-start></ion-icon>
+        <h2 class="dayofweek">{{ day.readableday }}</h2>
+        <h3> {{ day.summary }} </h3>
         <p>Entre {{ day.temperatureMin }}° - {{ day.temperatureMax }}° </p>
-      
+        <i class="wi wi-wind towards-sse" item-start></i>
     </ion-item>
     
   </ion-list>
