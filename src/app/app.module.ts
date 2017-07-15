@@ -5,7 +5,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp }                        from './app.component';
 import { HomePage }                     from '../pages/home/home';
 import { NextWeekPage }                 from '../pages/nextweek/nextweek';
-import { ContactPage  }                 from  '../pages/contact/contact'
+import { ContactPage  }                 from  '../pages/contact/contact';
+import { OtherPlacePage  }              from  '../pages/otherplaces/otherplaces'; 
 import { StatusBar }                    from '@ionic-native/status-bar';
 import { SplashScreen }                 from '@ionic-native/splash-screen';
 import { Geolocation }                  from '@ionic-native/geolocation';
@@ -18,7 +19,8 @@ import { DarkSkyApiService }            from '../services/darkskyapi.service';
     MyApp,
     HomePage,
     NextWeekPage,
-    ContactPage
+    ContactPage,
+    OtherPlacePage
   ],
   imports: [
     HttpModule,
@@ -30,7 +32,8 @@ import { DarkSkyApiService }            from '../services/darkskyapi.service';
     MyApp,
     HomePage,
     NextWeekPage,
-    ContactPage
+    ContactPage,
+    OtherPlacePage
   ],
   providers: [
     Geolocation,
