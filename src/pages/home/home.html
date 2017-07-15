@@ -9,45 +9,86 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   
-  <ion-card>
+  <ion-card class="pcard">
+    <img src="{{forecastimage}}" alt="">
     <ion-card-header text-center> 
-      {{ currentForecast.temperature }}°
+      <h1>  {{ currentForecast.temperature }}°</h1>
       <p> {{ currentForecast.summary }} </p>
       
     </ion-card-header>
     <ion-card-content>      
-      <ion-list>
-        <ion-item>
-          <ion-icon name="water" item-start></ion-icon>
-            <h2> Humidité </h2>
-          <span item-end> {{ currentForecast.humidity }} </span>
-        </ion-item>
-        <ion-item>
-          <ion-icon name="flag" item-start></ion-icon>
-            <h2> Vitesse du vent </h2> 
-        <span item-end> {{ currentForecast.windSpeed }} km/h</span> 
-        </ion-item>
-      </ion-list>
+      
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      Choses que vous pouvez faire 
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <!-- Utilisez un ngfor pour afficher les choses à faire en fonction de la température 
-        <ion-item>
-          <ion-icon name="leaf" item-start></ion-icon>
-            Herbology
-          <ion-icon name="rose" item-end></ion-icon>
-        </ion-item> -->
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4>
+        <ion-card text-center>
+          <ion-card-header><ion-icon name="water" item-start></ion-icon></ion-card-header>
+          <ion-card-content text-center>
+            <p> Humidité</p>
+            <h2>
+              {{ currentForecast.humidity }}
+            </h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-4>
+        <ion-card text-center>
+          <ion-card-header><ion-icon ios="ios-thermometer" md="md-thermometer"></ion-icon></ion-card-header>
+          <ion-card-content text-center>
+            <p> Temp.ambiante</p>
+            <h2>
+              {{ currentForecast.apparentTemperature }}°
+            </h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-4>
+        <ion-card text-center>
+          <ion-card-header><ion-icon name="flag" item-start></ion-icon></ion-card-header>
+          <ion-card-content text-center>
+            <p>Vent</p>            
+              <h2>{{ currentForecast.windSpeed }} km/h </h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ <!--
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-content>
+            <p>Pt de rosée</p>
+            {{ currentForecast.dewPoint }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-content>
+            
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-content>
+            
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ -->
 
-  
+ <p text-center>
+  <button ion-button round center (tap)="showOtherLocations()">Ailleurs</button>
+ </p>
+ 
 </ion-content>
