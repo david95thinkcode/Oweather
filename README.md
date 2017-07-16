@@ -16,6 +16,9 @@ npm install -g cordova ionic
 
 Before installing ionic, make sure you have the latest version of [Nodejs](https://nodejs.org/)
 
+## API Reference
+
+[Dark Sky API](https://darksky.net/dev/) - The easiest, most advanced, weather API on the web.
 
 ## Built With
 
@@ -23,9 +26,9 @@ Before installing ionic, make sure you have the latest version of [Nodejs](https
 
 ## Authors
 
-* **david95thinkcode** - [Profile](https://github.com/david95thinkcode) 
-* **Nardos**	
+* **[Me](https://github.com/david95thinkcode)**
+* **[Nardos](https://github.com/Hnardis)**	
 
 ## License
 
-Free to use
+Free to use.
