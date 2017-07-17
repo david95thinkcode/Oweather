@@ -22,7 +22,10 @@
         <ion-icon name="{{ day.css_icon_class }}" item-start></ion-icon>
         <h2 class="dayofweek">{{ day.readableday }}</h2>
         <h3> {{ day.summary }} </h3>
-        <p>Entre {{ day.temperatureMin }}° - {{ day.temperatureMax }}° </p>
+        <p>Entre 
+          {{ day.temperatureMin | number:'.1-1' }}°C - 
+          {{ day.temperatureMax | number:'.1-1' }}°C 
+        </p>
         <i class="wi wi-wind towards-sse" item-start></i>
     </ion-item>
     

@@ -14,7 +14,7 @@
   <ion-card class="pcard">
     <img src="{{forecastimage}}" alt="">
     <ion-card-header text-center> 
-      <h1>  {{ currentForecast.temperature }}°</h1>
+      <h1>  {{ currentForecast.temperature | number:'.1-1' }}° C</h1>
       <p> {{ currentForecast.summary }} </p>
       
     </ion-card-header>
@@ -31,7 +31,7 @@
           <ion-card-content text-center>
             <p> Humidité</p>
             <h2>
-              {{ currentForecast.humidity }}
+              {{ currentForecast.humidity | percent}}
             </h2>
           </ion-card-content>
         </ion-card>
@@ -42,7 +42,7 @@
           <ion-card-content text-center>
             <p> Temp.ambiante</p>
             <h2>
-              {{ currentForecast.apparentTemperature }}°
+              {{ currentForecast.apparentTemperature | number:'.1-1'}}°
             </h2>
           </ion-card-content>
         </ion-card>
