@@ -19,6 +19,7 @@ export class NextWeekPage {
   
   //Array to stock icon class
   icon_class: string[];
+  //The language which the API will use to return data
   defaultLang: string;
   currentPosition: IonicNativeGeoposition = new IonicNativeGeoposition();
   currentForecast: DarkSkyApiDataPoint = new DarkSkyApiDataPoint();
@@ -29,6 +30,7 @@ export class NextWeekPage {
   constructor(public navCtrl: NavController, private geolocation: Geolocation, private darkSkyApiService: DarkSkyApiService) {
     this.defaultLang = "fr";
     this.getCurrentPosition();
+    
     this.darkSkyApiService.getCurrentForecast(this.currentPosition)
     .then(fetched =>  {
       this.response = fetched;
@@ -36,20 +38,27 @@ export class NextWeekPage {
     });    
   }
 
-  /** Put value inside response to hydrate declared objects*/
+  /** Put value inside the variable response 
+   * to hydrate declared objects*/
   private hydrate() {
       this.currentForecast = this.response.currently;
       this.currentForecast.placeName = this.response.timezone;
       this.dailyForcastFornextWeek = this.response.daily;
       
-      //Removing the first data cause it's not for the next week 
+      //Removing the first data cause it represents today..
+      // not a day in the next week .
       this.dailyForcastFornextWeek.data.splice(0,1);
       
-      //this.hydrateDayProperty(this.dailyForcastFornextWeek);
       this.dailyForcastFornextWeek.data.forEach((element,index) => {       
         this.hydrateDayProperty(index, element)
         this.setIconToEachForecast(element);
-        //element.css_icon_class = "derf"
+
+        //All temperature inside "element" is in Fahrenheit degree
+        //Let convert all temperature value from Fahrenheit to Celsius degree
+        element.apparentTemperature = this.convertToCelsius(element.apparentTemperature);
+        element.apparentTemperatureMax = this.convertToCelsius(element.apparentTemperatureMax);
+        element.apparentTemperatureMin = this.convertToCelsius(element.apparentTemperatureMin);
+        element.temperature = this.convertToCelsius(element.temperature);
       });
       console.log(this.dailyForcastFornextWeek);
   }
@@ -59,17 +68,22 @@ export class NextWeekPage {
     
     this.geolocation.getCurrentPosition()
     .then((response) => {
-      this.currentPosition.accuracy = response.coords.accuracy;
       this.currentPosition.altitude = response.coords.altitude;
       this.currentPosition.longitude = response.coords.longitude;
-      this.currentPosition.latitude = response.coords.latitude;
-      this.currentPosition.speed = response.coords.speed;
-      this.currentPosition.heading = response.coords.heading;
-      this.currentPosition.altitudeAccuracy = response.coords.altitudeAccuracy;
+      
+      /** WE DON'T NEED THE FOLLOWING INSTRUCTIONS
+       * If one day, we need it, just disable this comments
+       * this.currentPosition.accuracy = response.coords.accuracy;
+       * this.currentPosition.latitude = response.coords.latitude;
+       * this.currentPosition.speed = response.coords.speed;
+       * this.currentPosition.heading = response.coords.heading;
+       * this.currentPosition.altitudeAccuracy = response.coords.altitudeAccuracy;
+       */
+
     })
     .catch((error) => {
       console.log('Error getting location ==> ', error);
-    })
+    });
 
   }
 
@@ -187,5 +201,19 @@ export class NextWeekPage {
       default:
         break;
     }
+  }
+
+  public convertToCelsius(fahrenheitValue: number): number {
+    let celsiusValue: number;
+    celsiusValue = (fahrenheitValue - 32) / 1.8;
+    
+    return celsiusValue;
+  }
+
+  public convertToFahrenheit(Celsius: number): number {
+    let fahr:number;
+    fahr = (Celsius * 1.8) + 32;
+
+    return fahr;
   }
 }

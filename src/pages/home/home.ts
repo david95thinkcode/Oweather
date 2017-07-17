@@ -6,8 +6,9 @@ import { DarkSkyApiResponse }                   from    '../../models/darkskyapi
 import { DarkSkyApiDataPoint }                  from    '../../models/darkskyapi-datapoint.model';
 import { DarkSkyApiDataBlock }                  from    '../../models/darkskyapi-datablock.model';
 import { IonicNativeGeoposition }               from    '../../models/ionicnative-geoposition.model';
-
 import { DarkSkyApiService }                    from    '../../services/darkskyapi.service';
+import { OtherPlacePage }                       from    '../../pages/otherplaces/otherplaces';
+
 
 @Component({
   selector: 'page-home',
@@ -38,6 +39,10 @@ export class HomePage {
   private hydrate() {
       console.log(this.response);
       this.currentForecast = this.response.currently;
+      // ####################
+      this.currentForecast.apparentTemperature = this.convertToCelsius(this.currentForecast.apparentTemperature);
+      this.currentForecast.temperature = this.convertToCelsius(this.currentForecast.temperature);
+      //   #####
       this.currentForecast.placeName = this.response.timezone;
       this.hourlyForcastFornextTwoDays = this.response.hourly;
   }
@@ -108,8 +113,25 @@ export class HomePage {
     }
   }
 
-  //Show another page
+  /**
+   * SHow the page with all capitals list
+   */
   public showOtherLocations() {
-
+    this.navCtrl.push(OtherPlacePage);
   }
+
+  public convertToCelsius(fahrenheitValue: number): number {
+    let celsiusValue: number;
+    celsiusValue = (fahrenheitValue - 32) / 1.8;
+    
+    return celsiusValue;
+  }
+
+  public convertToFahrenheit(Celsius: number): number {
+    let fahr:number;
+    fahr = (Celsius * 1.8) + 32;
+
+    return fahr;
+  }
+
 }
