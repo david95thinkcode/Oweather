@@ -4,14 +4,24 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      Other Locations
+      Ailleurs
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+
+<!-- <ion-searchbar 
+    [(ngModel)]="myInput"
+    [showCancelButton]="shouldShowCancel"
+    (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)">
+  </ion-searchbar>
+  -->
+
   <ion-list>
-    
-    
+    <button ion-item *ngFor="let item of capitals | async " (tap)="showForecast(item.CapitalLatitude, item.CapitalLongitude)">
+    <strong>{{ item.CapitalName }}</strong>, {{ item.CountryName }}
+    </button>    
   </ion-list>
 </ion-content>
