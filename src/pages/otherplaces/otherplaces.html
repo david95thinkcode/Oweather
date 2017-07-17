@@ -20,7 +20,7 @@
   -->
 
   <ion-list>
-    <button ion-item *ngFor="let item of capitals | async " (tap)="showForecast(item.CapitalLatitude, item.CapitalLongitude)">
+    <button ion-item *ngFor="let item of capitals | async " (tap)="showForecast(item.CapitalLatitude, item.CapitalLongitude, item.CapitalName)">
     <strong>{{ item.CapitalName }}</strong>, {{ item.CountryName }}
     </button>    
   </ion-list>

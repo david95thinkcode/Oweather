@@ -21,12 +21,13 @@ export class OtherPlacePage {
   }
 
   /**Open CapitalForecastPage and pass into it the position on capital witch user select */
-  showForecast(latitude: number, longitude: number) {    
+  showForecast(latitude: number, longitude: number, capitalname:string) {    
     let position: IonicNativeGeoposition = new IonicNativeGeoposition();    
     console.log("Location : " + latitude + " / " + longitude);
     position.latitude = latitude;
     position.longitude = longitude;
     this.navCtrl.push(CapitalForecastPage, {
+      name: capitalname,
       position: position
     });
   }
