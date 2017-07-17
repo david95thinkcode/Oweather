@@ -29,10 +29,10 @@ export class DarkSkyApiService {
 
         //TODO: régler le problème de réception de origins
         if (origins.latitude == undefined || origins.latitude==undefined) { 
-            //On utilisera des valeurs par défaut en attendant que le problème d'origins soit réglé
+            //On utilisera des valeurs par défaut (de Cotonou) en attendant que le problème d'origins soit réglé
             let or : IonicNativeGeoposition = new IonicNativeGeoposition();
-            or.latitude = 6.3604233;
-            or.longitude = 2.3769492000000003;
+            or.latitude = 6.3559122;
+            or.longitude = 2.436167;
             parameters = `${or.latitude},${or.longitude}?${language}`;
         }
         else {
@@ -46,7 +46,7 @@ export class DarkSkyApiService {
         .catch(error => console.log('DarkSkyService error : ' + error));
 
     }
-
+    
     /** GET FORECAST OF RECEIVED LOCATION
      * @param place Le lieu dont on veut récupérer la prévision
      */
