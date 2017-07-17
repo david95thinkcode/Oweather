@@ -14,6 +14,7 @@ import { DarkSkyApiService }                    from    '../../services/darkskya
 export class CapitalForecastPage {
 
   //Object
+  capitalName: string = '';
   currentPosition: IonicNativeGeoposition = new IonicNativeGeoposition();
   currentForecast: DarkSkyApiDataPoint = new DarkSkyApiDataPoint();
   response: DarkSkyApiResponse = new DarkSkyApiResponse();
@@ -21,6 +22,8 @@ export class CapitalForecastPage {
 
   constructor(public navCtrl: NavController, navparams:NavParams ,private darkSkyApiService: DarkSkyApiService) {
     this.currentPosition = navparams.get('position');
+    this.capitalName = navparams.get('name');
+
     this.darkSkyApiService.getCurrentForecast(this.currentPosition)
     .then(fetched =>  {
       this.response = fetched;
@@ -33,6 +36,8 @@ export class CapitalForecastPage {
   private hydrate() {
       console.log(this.response);
       this.currentForecast = this.response.currently;
+      this.currentForecast.apparentTemperature = this.convertToCelsius(this.currentForecast.apparentTemperature);
+      this.currentForecast.temperature = this.convertToCelsius(this.currentForecast.temperature);
       this.currentForecast.placeName = this.response.timezone;
   }
 
@@ -81,6 +86,20 @@ export class CapitalForecastPage {
       default:
         break;
     }
+  }
+
+  public convertToCelsius(fahrenheitValue: number): number {
+    let celsiusValue: number;
+    celsiusValue = (fahrenheitValue - 32) / 1.8;
+    
+    return celsiusValue;
+  }
+
+  public convertToFahrenheit(Celsius: number): number {
+    let fahr:number;
+    fahr = (Celsius * 1.8) + 32;
+
+    return fahr;
   }
   
 }
