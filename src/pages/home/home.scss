@@ -1,10 +1,11 @@
 page-home {
     .content-md {
         //background-image: url('img/home.jpg');
-        background: #ffd89b;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #19547b, #ffd89b);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #19547b, #ffd89b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+    }
 
+    .card-md {
+        background: transparent;
     }
 
     .pcard {
@@ -16,11 +17,31 @@ page-home {
         }
     }
 
+    .precipType {
+        color: orangered;
+    }
+
+    .precipeProba {
+        color: orangered;
+        font-size: x-large;
+    }
+
+    .annonce {
+        //background-image: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
+    }
+
+    .annonce>ion-card-content {
+        color: white;
+    }
+
     ion-col {
         .card-md {
             border-radius: 10px;
             min-height: 120px
         }
     }
+    /*
+        background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
+    */
 
 }
