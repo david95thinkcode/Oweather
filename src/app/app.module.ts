@@ -17,8 +17,8 @@ import { HttpModule  }                  from "@angular/http";
 import {  AngularFireModule }           from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'; 
 import { DarkSkyApiService }            from '../services/darkskyapi.service';
-import { FirebaseProvider } from '../providers/firebase/firebase';
-import { IonicNativeService} from '../services/ionicnative.service'
+import { FirebaseProvider }             from '../providers/firebase/firebase';
+import { IonicNativeService}            from '../services/ionicnative.service'
 
 //AngularFire2 Settings
 export const firebaseConfig = {
