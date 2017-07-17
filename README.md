@@ -8,9 +8,15 @@ It's not recommanded to install it.
 This app is still in dev. A lot of bugs can be found.
 
 ## Functionalities 
+
 - Show the forecast of user position
 - Show forecast for the next week at the user position
-- Show forecast for any capital
+- Show forecast for any capital in pre-filled list
+
+### Coming soon
+
+- Get the forecast of any place taped in a search bar
+- Get the forecast hour by hour
 
 ### Prerequisites
 
