@@ -6,8 +6,10 @@ import { DarkSkyApiResponse }                   from    '../../models/darkskyapi
 import { DarkSkyApiDataPoint }                  from    '../../models/darkskyapi-datapoint.model';
 import { DarkSkyApiDataBlock }                  from    '../../models/darkskyapi-datablock.model';
 import { IonicNativeGeoposition }               from    '../../models/ionicnative-geoposition.model';
-import { DarkSkyApiService }                    from    '../../services/darkskyapi.service';
 import { OtherPlacePage }                       from    '../../pages/otherplaces/otherplaces';
+
+import { IonicNativeService}                    from '../../services/ionicnative.service'
+import { DarkSkyApiService }                    from    '../../services/darkskyapi.service';
 
 
 @Component({
@@ -24,9 +26,10 @@ export class HomePage {
   response: DarkSkyApiResponse = new DarkSkyApiResponse();
   forecastimage: string; //wille store the location of imae of forecast
 
-  constructor(public navCtrl: NavController, private geolocation: Geolocation, private darkSkyApiService: DarkSkyApiService) {
+  constructor(public navCtrl: NavController, private ionicnativeservice:IonicNativeService, private geolocation: Geolocation, private darkSkyApiService: DarkSkyApiService) {
+    this.ionicnativeservice.loadCurrentLocationOn(this.currentPosition);
+    console.log(this.currentPosition);
     
-    this.getCurrentPosition();
     this.darkSkyApiService.getCurrentForecast(this.currentPosition)
     .then(fetched =>  {
       this.response = fetched;
@@ -43,25 +46,6 @@ export class HomePage {
       this.currentForecast.temperature = this.convertToCelsius(this.currentForecast.temperature);
       this.currentForecast.placeName = this.response.timezone;
       this.hourlyForcastFornextTwoDays = this.response.hourly;
-  }
-
-  /** Use Native Gelolcation to get device geoposition */
-  private getCurrentPosition() {
-    
-    this.geolocation.getCurrentPosition()
-    .then((response) => {
-      this.currentPosition.accuracy = response.coords.accuracy;
-      this.currentPosition.altitude = response.coords.altitude;
-      this.currentPosition.longitude = response.coords.longitude;
-      this.currentPosition.latitude = response.coords.latitude;
-      this.currentPosition.speed = response.coords.speed;
-      this.currentPosition.heading = response.coords.heading;
-      this.currentPosition.altitudeAccuracy = response.coords.altitudeAccuracy;
-    })
-    .catch((error) => {
-      console.log('Error getting location ==> ', error);
-    })
-
   }
 
   

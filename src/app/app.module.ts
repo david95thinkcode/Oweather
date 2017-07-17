@@ -18,6 +18,7 @@ import {  AngularFireModule }           from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'; 
 import { DarkSkyApiService }            from '../services/darkskyapi.service';
 import { FirebaseProvider } from '../providers/firebase/firebase';
+import { IonicNativeService} from '../services/ionicnative.service'
 
 //AngularFire2 Settings
 export const firebaseConfig = {
@@ -57,6 +58,7 @@ export const firebaseConfig = {
   providers: [
     Geolocation,
     DarkSkyApiService,
+    IonicNativeService,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
