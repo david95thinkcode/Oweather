@@ -12,7 +12,20 @@ import { SplashScreen }                 from '@ionic-native/splash-screen';
 import { Geolocation }                  from '@ionic-native/geolocation';
 
 import { HttpModule  }                  from "@angular/http";
+import {  AngularFireModule }           from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'; 
 import { DarkSkyApiService }            from '../services/darkskyapi.service';
+import { FirebaseProvider } from '../providers/firebase/firebase';
+
+//AngularFire2 Settings
+export const firebaseConfig = {
+  apiKey: "AIzaSyAzM0s8ppPIARqhe3m4MPG7HJYVCCLJ1F4",
+  authDomain: "oweather-526db.firebaseapp.com",
+  databaseURL: "https://oweather-526db.firebaseio.com",
+  projectId: "oweather-526db",
+  storageBucket: "oweather-526db.appspot.com",
+  messagingSenderId: "790818390879"
+};
 
 @NgModule({
   declarations: [
@@ -26,6 +39,8 @@ import { DarkSkyApiService }            from '../services/darkskyapi.service';
     HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -40,7 +55,8 @@ import { DarkSkyApiService }            from '../services/darkskyapi.service';
     DarkSkyApiService,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FirebaseProvider
   ]
 })
 export class AppModule {}
