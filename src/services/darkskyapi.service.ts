@@ -47,8 +47,7 @@ export class DarkSkyApiService {
 
     }
 
-    /** RECUPERE LES PREVISONS D'UN LIEU DONNE
-     * 
+    /** GET FORECAST OF RECEIVED LOCATION
      * @param place Le lieu dont on veut récupérer la prévision
      */
     public getTimeMachineRequest(place: IonicNativeGeoposition) :Promise<DarkSkyApiResponse> {

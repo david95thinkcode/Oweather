@@ -4,7 +4,6 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title text-center>  {{ currentForecast.placeName }} 
-      <ion-icon name="pin"></ion-icon>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -13,20 +12,16 @@
   
   <ion-card class="pcard">
     <img src="{{forecastimage}}" alt="">
-    <ion-card-header text-center> 
+    <ion-card-content text-center>      
       <h1>  {{ currentForecast.temperature | number:'.1-1' }}° C</h1>
       <p> {{ currentForecast.summary }} </p>
-      
-    </ion-card-header>
-    <ion-card-content>      
-      
     </ion-card-content>
   </ion-card>
 
   <ion-grid>
     <ion-row>
-      <ion-col col-4>
-        <ion-card text-center>
+      <ion-col>
+        <ion-card text-center class="pcard">
           <ion-card-header><ion-icon name="water" item-start></ion-icon></ion-card-header>
           <ion-card-content text-center>
             <p> Humidité</p>
@@ -35,20 +30,9 @@
             </h2>
           </ion-card-content>
         </ion-card>
-      </ion-col>
-      <ion-col col-4>
-        <ion-card text-center>
-          <ion-card-header><ion-icon ios="ios-thermometer" md="md-thermometer"></ion-icon></ion-card-header>
-          <ion-card-content text-center>
-            <p> Temp.ambiante</p>
-            <h2>
-              {{ currentForecast.apparentTemperature | number:'.1-1'}}°
-            </h2>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col col-4>
-        <ion-card text-center>
+      </ion-col> 
+      <ion-col>
+        <ion-card text-center class="pcard">
           <ion-card-header><ion-icon name="flag" item-start></ion-icon></ion-card-header>
           <ion-card-content text-center>
             <p>Vent</p>            
@@ -58,6 +42,44 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card text-center class="pcard">
+          <ion-card-header><ion-icon name="flag" item-start></ion-icon></ion-card-header>
+          <ion-card-content text-center>
+            <p>Ciel couvert à </p>            
+              <h2>{{ currentForecast.cloudCover | percent }} </h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card text-center class="pcard">
+          <ion-card-header><ion-icon ios="ios-thermometer" md="md-thermometer"></ion-icon></ion-card-header>
+          <ion-card-content text-center>
+            <p> Température ambiante</p>
+            <h2>
+              {{ currentForecast.apparentTemperature | number:'.1-1'}}°C
+            </h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <h1 text-center> SOYEZ PRÊT </h1>
+
+  <ion-card class="annonce">
+    <ion-card-content text-center>
+      <h2>
+        Une précipitation de type <span class="precipType">{{ currentForecast.precipType }}</span> 
+        est annoncée avec une probabilité de <br>
+        <span class="precipeProba"> {{ currentForecast.precipProbability | percent }} </span>
+      </h2>
+    </ion-card-content>
+  </ion-card>
+  
  <!--
   <ion-grid>
     <ion-row>

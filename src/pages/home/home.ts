@@ -39,10 +39,8 @@ export class HomePage {
   private hydrate() {
       console.log(this.response);
       this.currentForecast = this.response.currently;
-      // ####################
       this.currentForecast.apparentTemperature = this.convertToCelsius(this.currentForecast.apparentTemperature);
       this.currentForecast.temperature = this.convertToCelsius(this.currentForecast.temperature);
-      //   #####
       this.currentForecast.placeName = this.response.timezone;
       this.hourlyForcastFornextTwoDays = this.response.hourly;
   }
