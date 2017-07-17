@@ -7,6 +7,11 @@ A mobile weather app witch gives the current forecast for user location.
 It's not recommanded to install it.
 This app is still in dev. A lot of bugs can be found.
 
+## Functionalities 
+- Show the forecast of user position
+- Show forecast for the next week at the user position
+- Show forecast for any capital
+
 ### Prerequisites
 
 Install Ionic. Tap the following command in terminal
