@@ -21,22 +21,22 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-card text-center class="pcard">
+        <ion-card text-center class="">
           <ion-card-header><ion-icon name="water" item-start></ion-icon></ion-card-header>
           <ion-card-content text-center>
-            <p> Humidité</p>
             <h2>
               {{ currentForecast.humidity | percent}}
             </h2>
+            <p> Humidité</p>
           </ion-card-content>
         </ion-card>
       </ion-col> 
       <ion-col>
-        <ion-card text-center class="pcard">
+        <ion-card text-center class="">
           <ion-card-header><ion-icon name="flag" item-start></ion-icon></ion-card-header>
-          <ion-card-content text-center>
-            <p>Vent</p>            
+          <ion-card-content text-center>           
               <h2>{{ currentForecast.windSpeed }} km/h </h2>
+              <p>Vent</p> 
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -46,7 +46,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-card text-center class="pcard">
+        <ion-card text-center class="">
           <ion-card-header><ion-icon name="flag" item-start></ion-icon></ion-card-header>
           <ion-card-content text-center>
             <p>Ciel couvert à </p>            
@@ -55,7 +55,7 @@
         </ion-card>
       </ion-col>
       <ion-col>
-        <ion-card text-center class="pcard">
+        <ion-card text-center class="">
           <ion-card-header><ion-icon ios="ios-thermometer" md="md-thermometer"></ion-icon></ion-card-header>
           <ion-card-content text-center>
             <p> Température ambiante</p>

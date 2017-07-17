@@ -15,6 +15,13 @@ page-home {
         .item-md {
             background: none;
         }
+
+        h1 {
+            font-size: xx-large;
+            font-size: -webkit-xxx-large;
+            font-weight: lighter;
+            
+        }
     }
 
     .precipType {
@@ -36,8 +43,15 @@ page-home {
 
     ion-col {
         .card-md {
-            border-radius: 10px;
-            min-height: 120px
+            background-color: #30E3CA;
+            box-shadow: none;
+            border-radius: 80%;
+            min-height: 145px;
+            max-height: 145px;
+
+             h2 {
+                 font-size: x-large;
+             }
         }
     }
     /*
