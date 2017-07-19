@@ -8,9 +8,8 @@ import { DarkSkyApiDataBlock }                  from    '../../models/darkskyapi
 import { IonicNativeGeoposition }               from    '../../models/ionicnative-geoposition.model';
 import { OtherPlacePage }                       from    '../../pages/otherplaces/otherplaces';
 
-import { IonicNativeService}                    from '../../services/ionicnative.service'
+import { IonicNativeService }                   from    '../../services/ionicnative.service';
 import { DarkSkyApiService }                    from    '../../services/darkskyapi.service';
-
 
 @Component({
   selector: 'page-home',
@@ -19,26 +18,33 @@ import { DarkSkyApiService }                    from    '../../services/darkskya
 
 export class HomePage {
 
-  //Object
   currentPosition: IonicNativeGeoposition = new IonicNativeGeoposition();
   currentForecast: DarkSkyApiDataPoint = new DarkSkyApiDataPoint();
   hourlyForcastFornextTwoDays: DarkSkyApiDataBlock = new DarkSkyApiDataBlock();
   response: DarkSkyApiResponse = new DarkSkyApiResponse();
-  forecastimage: string; //wille store the location of imae of forecast
+  forecastimage: string; //will store the location forecast picture
 
-  constructor(public navCtrl: NavController, private ionicnativeservice:IonicNativeService, private geolocation: Geolocation, private darkSkyApiService: DarkSkyApiService) {
-    this.ionicnativeservice.loadCurrentLocationOn(this.currentPosition);
-    console.log(this.currentPosition);
-    
-    this.darkSkyApiService.getCurrentForecast(this.currentPosition)
-    .then(fetched =>  {
-      this.response = fetched;
-      this.hydrate();
-      this.setIconToForecast(this.response.currently.icon);
-    });    
+  constructor(public navCtrl: NavController, private geolocation: Geolocation, private darkSkyApiService: DarkSkyApiService, private ionicnativeservice:IonicNativeService ) {
+    //@Description
+    // Fristly: we get the device location using our << ionicnativeservice >>
+    // Secondly : We get the forecast about that place using << darkskyApiService >>
+
+    this.ionicnativeservice.loadCurrentLocation()
+    .then(fetched => { 
+      //If we get the location, so we put it on currectPosition...
+      this.currentPosition = fetched as IonicNativeGeoposition;
+      //Here we get the forecast
+      this.darkSkyApiService.getCurrentForecast(this.currentPosition)
+      .then(fetchedforecast =>  {
+        this.response = fetchedforecast;
+        this.hydrate();
+        this.setIconToForecast(this.response.currently.icon);
+      })
+    });
+
   }
 
-  /** Put value inside response to hydrate declared objects*/
+  /** Put required values inside response to hydrate declared objects*/
   private hydrate() {
       console.log(this.response);
       this.currentForecast = this.response.currently;
@@ -48,7 +54,7 @@ export class HomePage {
       this.hourlyForcastFornextTwoDays = this.response.hourly;
   }
 
-  
+  /**Set the right picture location to forecasimage according to the iconstring */
   private setIconToForecast(iconstring: string ) {
     switch (iconstring) {
       case "clear-day":

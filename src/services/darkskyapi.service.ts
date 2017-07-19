@@ -19,16 +19,16 @@ export class DarkSkyApiService {
         
     }
 
-    /** RECUPERE LES PREVISIONS D'UN LIEU RECU EN PARAMETRE
-     * @param origins Objet représentant la position du lieu dont on veut afficher les prévisions
-     */
+    /** GET FORECAST OF RECEIVED LOCATION
+     * @param place The place that we want to get the forecast
+    */
     public getCurrentForecast(origins: IonicNativeGeoposition): Promise<DarkSkyApiResponse> {
         
         let parameters: string = '';
         let language = `lang=${this.defaultLanguage}`;
-
-        //TODO: régler le problème de réception de origins
+        
         if (origins.latitude == undefined || origins.latitude==undefined) { 
+            console.log("Real position not get");
             //On utilisera des valeurs par défaut (de Cotonou) en attendant que le problème d'origins soit réglé
             let or : IonicNativeGeoposition = new IonicNativeGeoposition();
             or.latitude = 6.3559122;
@@ -36,7 +36,7 @@ export class DarkSkyApiService {
             parameters = `${or.latitude},${or.longitude}?${language}`;
         }
         else {
-            parameters = `${origins.latitude},${origins.longitude}`;
+            parameters = `${origins.latitude},${origins.longitude}?${language}`;
         }
         const url: string = this.baseURL+this.apikey+'/'+parameters;
 
@@ -47,21 +47,13 @@ export class DarkSkyApiService {
 
     }
     
-    /** GET FORECAST OF RECEIVED LOCATION
-     * @param place Le lieu dont on veut récupérer la prévision
+    /** GET FORECAST OF RECEIVED LOCATION AND THE DAY
+     * @param place The place that we want to get the forecast
+     * @param day the day forecast we wanna get
      */
-    public getTimeMachineRequest(place: IonicNativeGeoposition) :Promise<DarkSkyApiResponse> {
-        
-        console.log(place);
-        const parameters: string = `${place.latitude},${place.longitude}`;
-        let parameters2: string = "";
-        
-        const url: string = this.baseURL+this.apikey+'/'+parameters;
-
-        return this.http.get(url)
-        .toPromise()
-        .then(response => response.json() as DarkSkyApiResponse)
-        .catch(error => console.log('DarkSkyService error : ' + error))
+    public getTimeMachineRequest(place: IonicNativeGeoposition, day: string) {
+       
+        //TODO: Write the code of this method 
 
     }
 

@@ -14,53 +14,11 @@ export class IonicNativeService {
 
     }
 
-    /** Charge dans l'objet reçu en paramètre la position actuelle du périphérique
-     * @position: objet IonicNativeGeolocation recu 
-     */
-    public loadCurrentLocationOn(position: IonicNativeGeoposition){
+    /**GET THE LOCATION OF DEVICE USING NATIVE GEOLOCATION DATA */
+    public loadCurrentLocation() {
         
-        this.geolocation.getCurrentPosition()
-            .then((response) => {
-                position.accuracy = response.coords.accuracy;
-                position.altitude = response.coords.altitude;
-                position.longitude = response.coords.longitude;
-                position.latitude = response.coords.latitude;
-                position.speed = response.coords.speed;
-                position.heading = response.coords.heading;
-                position.altitudeAccuracy = response.coords.altitudeAccuracy;
-            })
-            .catch((error) => {
-                console.log('Error getting location ==> ', error);
-            });
+        return this.geolocation.getCurrentPosition()
+            .then((response) =>  response.coords as IonicNativeGeoposition)
+            .catch((error) => console.log("Unable to get location because => " + error));
     }
-
-    /** 
-        public getCurrentPosition() {
-            
-            //Notre objet représentant la position du périphérique
-            let currentLocation: IonicNativeGeolocation = new IonicNativeGeolocation;
-
-            this.geolocation.getCurrentPosition()
-            .then((response) => {
-
-                currentLocation = response.coords;
-                console.log("CurrentPosition : " + currentLocation);
-
-            })
-            .catch((error) => {
-                console.log('Error getting location ==> ', error);
-            });
-        }
-
-        public watchPosition() {
-            
-            let watch = this.geolocation.watchPosition();
-            watch.subscribe((data) => {
-            // data can be a set of coordinates, or an error (if an error occurred).
-            // data.coords.latitude
-            // data.coords.longitude
-            });
-        }
-
-    */
 }
