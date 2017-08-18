@@ -1,22 +1,17 @@
 # Oweather
 
-A mobile weather app witch gives the current forecast for user location.
+A mobile weather app witch gives the current forecast for user location. Even for another place
 
-## Getting Started
+## Screenshots
 
-It's not recommanded to install it.
-This app is still in dev. A lot of bugs can be found.
+![HomeUp !](screenshots/homeUp.jpg "Current forecast")
+![HomeDown !](screenshots/homeDown.jpg "Current forecast")
 
 ## Functionalities 
 
 - Show the forecast of user position
 - Show forecast for the next week at the user position
 - Show forecast for any capital in pre-filled list
-
-### Coming soon
-
-- Get the forecast of any place taped in a search bar
-- Get the forecast hour by hour
 
 ### Prerequisites
 
@@ -34,12 +29,3 @@ Before installing ionic, make sure you have the latest version of [Nodejs](https
 ## Built With
 
 * [Ionic Framework](https://ionicframework.com) - The top open source framework for building amazing mobile apps. 
-
-## Authors
-
-* **[Me](https://github.com/david95thinkcode)**
-* **[Nardos](https://github.com/Hnardis)**	
-
-## License
-
-Free to use.
