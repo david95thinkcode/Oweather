@@ -1,11 +1,11 @@
 # Oweather
 
-A mobile weather app witch gives the current forecast for user location. Even for another place
+A mobile weather app witch shows the current forecast for user location. Even for another place
 
 ## Screenshots
 
-![HomeUp !](screenshots/homeUp.jpg "Current forecast")
-![HomeDown !](screenshots/homeDown.jpg "Current forecast")
+![HomeUp !](screenshots/homeUp.png "Current forecast")
+![HomeDown !](screenshots/homeDown.png "Current forecast")
 
 ## Functionalities 
 
