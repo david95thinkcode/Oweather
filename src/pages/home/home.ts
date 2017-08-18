@@ -82,7 +82,7 @@ export class HomePage {
         this.forecastimage = "assets/img/cloudy-day.png";
         break;
       case "partly-cloudy-day":
-        this.forecastimage = "assets/img/partly-sunny.png";
+        this.forecastimage = "assets/img/partial-sunny.png";
         break;
       case "partly-cloudy-night":
         this.forecastimage = "assets/img/cloud.png";
