@@ -13,22 +13,15 @@ import { StatusBar }                    from '@ionic-native/status-bar';
 import { SplashScreen }                 from '@ionic-native/splash-screen';
 import { Geolocation }                  from '@ionic-native/geolocation';
 
+import { HttpClientModule }             from '@angular/common/http';
+
 import { HttpModule  }                  from "@angular/http";
 import {  AngularFireModule }           from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'; 
 import { DarkSkyApiService }            from '../services/darkskyapi.service';
 import { FirebaseProvider }             from '../providers/firebase/firebase';
 import { IonicNativeService}            from '../services/ionicnative.service'
-
-//AngularFire2 Settings
-export const firebaseConfig = {
-  apiKey: "AIzaSyAzM0s8ppPIARqhe3m4MPG7HJYVCCLJ1F4",
-  authDomain: "oweather-526db.firebaseapp.com",
-  databaseURL: "https://oweather-526db.firebaseio.com",
-  projectId: "oweather-526db",
-  storageBucket: "oweather-526db.appspot.com",
-  messagingSenderId: "790818390879"
-};
+import { firebase }            from '../config/firebase'
 
 @NgModule({
   declarations: [
@@ -42,8 +35,9 @@ export const firebaseConfig = {
   imports: [
     HttpModule,
     BrowserModule,
+    HttpClientModule ,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(firebase),
     AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],

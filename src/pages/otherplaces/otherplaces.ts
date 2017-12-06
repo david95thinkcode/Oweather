@@ -1,6 +1,6 @@
 import { Component }                    from '@angular/core';
 import { NavController }                from 'ionic-angular';
-import { FirebaseListObservable, AngularFireDatabase }  from 'angularfire2/database';
+import { AngularFireDatabase }  from 'angularfire2/database';
 import { IonicNativeGeoposition }                       from    '../../models/ionicnative-geoposition.model';
 import { CapitalForecastPage }                          from    '../../pages/capitalforecast/capitalforecast';
 
@@ -11,13 +11,13 @@ import { CapitalForecastPage }                          from    '../../pages/cap
 
 export class OtherPlacePage {
 
- capitals: FirebaseListObservable<any>;  
+//  capitals: FirebaseListObservable<any>;  
 
   constructor(public navCtrl: NavController, af: AngularFireDatabase) {
     //PS: The list of countries capital is on Firebase
     //Loading capitals from firebase 
     //And putting it to variable "capitals"
-    this.capitals = af.list('/capital');
+    // this.capitals = af.list('/capital');
   }
 
   /**Open CapitalForecastPage and pass into it the position on capital witch user select */
