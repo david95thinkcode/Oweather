@@ -19,9 +19,8 @@ import { HttpModule  }                  from "@angular/http";
 import {  AngularFireModule }           from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'; 
 import { DarkSkyApiService }            from '../services/darkskyapi.service';
-import { FirebaseProvider }             from '../providers/firebase/firebase';
 import { IonicNativeService}            from '../services/ionicnative.service'
-import { firebase }            from '../config/firebase'
+import { firebase }                     from '../config/firebase'
 
 @NgModule({
   declarations: [
@@ -56,7 +55,6 @@ import { firebase }            from '../config/firebase'
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    FirebaseProvider
   ]
 })
 export class AppModule {}

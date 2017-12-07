@@ -26,8 +26,9 @@ export class MyApp {
     this.pages = [
       { title: 'Accueil', component: HomePage },
       { title: 'Semaine prochaine', component: NextWeekPage },
-      { title: 'Les capitales', component: OtherPlacePage },
-      { title: 'About us', component: ContactPage }
+      { title: 'Ailleurs', component: OtherPlacePage },
+      { title: 'About us', component: ContactPage },
+      { title: 'Feedback', component: ''}
     ];
 
   }
