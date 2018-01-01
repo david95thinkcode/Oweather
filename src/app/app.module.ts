@@ -14,10 +14,9 @@ import { SplashScreen }                 from '@ionic-native/splash-screen';
 import { Geolocation }                  from '@ionic-native/geolocation';
 
 import { HttpClientModule }             from '@angular/common/http';
-
-import { HttpModule  }                  from "@angular/http";
 import {  AngularFireModule }           from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'; 
+
 import { DarkSkyApiService }            from '../services/darkskyapi.service';
 import { IonicNativeService}            from '../services/ionicnative.service'
 import { firebase }                     from '../config/firebase'
@@ -32,9 +31,8 @@ import { firebase }                     from '../config/firebase'
     CapitalForecastPage
   ],
   imports: [
-    HttpModule,
     BrowserModule,
-    HttpClientModule ,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebase),
     AngularFireDatabaseModule

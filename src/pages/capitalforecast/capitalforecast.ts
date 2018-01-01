@@ -5,7 +5,6 @@ import { DarkSkyApiDataPoint }                  from    '../../models/darkskyapi
 import { IonicNativeGeoposition }               from    '../../models/ionicnative-geoposition.model';
 import { DarkSkyApiService }                    from    '../../services/darkskyapi.service';
 
-
 @Component({
   selector: 'page-capitalforecast',
   templateUrl: 'capitalforecast.html'
@@ -29,7 +28,8 @@ export class CapitalForecastPage {
       this.response = fetched;
       this.hydrate();
       this.setIconToForecast(this.response.currently.icon);
-    });    
+    })
+    .catch(error => console.log('Fetching error'));
   }
 
   /** Put value inside response to hydrate declared objects*/

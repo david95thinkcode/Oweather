@@ -1,4 +1,4 @@
-import { Component }                            from    '@angular/core';
+import { Component, OnInit }                            from    '@angular/core';
 import { NavController }                        from    'ionic-angular';
 import { Geolocation }                          from    '@ionic-native/geolocation';
 
@@ -16,7 +16,7 @@ import { DarkSkyApiService }                    from    '../../services/darkskya
   templateUrl: 'home.html'
 })
 
-export class HomePage {
+export class HomePage implements OnInit {
 
   currentPosition: IonicNativeGeoposition = new IonicNativeGeoposition();
   currentForecast: DarkSkyApiDataPoint = new DarkSkyApiDataPoint();
@@ -24,30 +24,36 @@ export class HomePage {
   response: DarkSkyApiResponse = new DarkSkyApiResponse();
   forecastimage: string; //will store the location forecast picture
 
-  constructor(public navCtrl: NavController, private geolocation: Geolocation, private darkSkyApiService: DarkSkyApiService, private ionicnativeservice:IonicNativeService ) {
-    //@Description
-    // Fristly: we get the device location using our << ionicnativeservice >>
-    // Secondly : We get the forecast about that place using << darkskyApiService >>
+  constructor(public navCtrl: NavController,
+    private geolocation: Geolocation,
+    private darkSkyApiService: DarkSkyApiService,
+    private ionicnativeservice:IonicNativeService) {}
+    
+    ngOnInit() {
+      this.getForecast(); 
+    }
 
+  getForecast() {
     this.ionicnativeservice.loadCurrentLocation()
     .then(fetched => { 
-      //If we get the location, so we put it on currectPosition...
       this.currentPosition = fetched as IonicNativeGeoposition;
-      //Here we get the forecast
       this.darkSkyApiService.getCurrentForecast(this.currentPosition)
-      .then(fetchedforecast =>  {
-        this.response = fetchedforecast;
-        this.hydrate();
-        this.setIconToForecast(this.response.currently.icon);
+      .subscribe(
+        (data) => {
+          //console.log(data);
+          this.hydrate(data);
+          this.setIconToForecast(data.currently.icon);
+      },
+      error => {
+        console.log('Something went wrong');
       })
     });
 
   }
 
   /** Put required values inside response to hydrate declared objects*/
-  private hydrate() {
-      console.log(this.response);
-      this.currentForecast = this.response.currently;
+  private hydrate(response: any) {
+      this.currentForecast = response.currently;
       this.currentForecast.apparentTemperature = this.convertToCelsius(this.currentForecast.apparentTemperature);
       this.currentForecast.temperature = this.convertToCelsius(this.currentForecast.temperature);
       this.currentForecast.placeName = this.response.timezone;
