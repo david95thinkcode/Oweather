@@ -29,9 +29,9 @@ export class HomePage implements OnInit {
     private darkSkyApiService: DarkSkyApiService,
     private ionicnativeservice:IonicNativeService) {}
     
-    ngOnInit() {
-      this.getForecast(); 
-    }
+  ngOnInit() {
+    this.getForecast(); 
+  }
 
   getForecast() {
     this.ionicnativeservice.loadCurrentLocation()
@@ -45,7 +45,7 @@ export class HomePage implements OnInit {
           this.setIconToForecast(data.currently.icon);
       },
       error => {
-        console.log('Something went wrong');
+        console.log('Something were wrong');
       })
     });
 
@@ -119,7 +119,7 @@ export class HomePage implements OnInit {
     celsiusValue = (fahrenheitValue - 32) / 1.8;
     
     return celsiusValue;
-  }
+  } 
 
   public convertToFahrenheit(Celsius: number): number {
     let fahr:number;

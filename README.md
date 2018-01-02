@@ -7,7 +7,7 @@ A mobile weather app witch shows the current forecast for user location. Even fo
 ![HomeUp !](screenshots/homeUp.png "Current forecast")
 ![HomeDown !](screenshots/homeDown.png "Current forecast")
 
-## Functionalities 
+## Features 
 
 - Show the forecast of user position
 - Show forecast for the next week at the user position

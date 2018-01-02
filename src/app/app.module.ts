@@ -4,7 +4,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp }                        from './app.component';
 import { HomePage }                     from '../pages/home/home';
-import { NextWeekPage }                 from '../pages/nextweek/nextweek';
 import { ContactPage  }                 from  '../pages/contact/contact';
 import { OtherPlacePage  }              from  '../pages/otherplaces/otherplaces'; 
 import { CapitalForecastPage }          from  '../pages/capitalforecast/capitalforecast';
@@ -14,7 +13,7 @@ import { SplashScreen }                 from '@ionic-native/splash-screen';
 import { Geolocation }                  from '@ionic-native/geolocation';
 
 import { HttpClientModule }             from '@angular/common/http';
-import {  AngularFireModule }           from 'angularfire2';
+import { AngularFireModule }            from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database'; 
 
 import { DarkSkyApiService }            from '../services/darkskyapi.service';
@@ -25,7 +24,6 @@ import { firebase }                     from '../config/firebase'
   declarations: [
     MyApp,
     HomePage,
-    NextWeekPage,
     ContactPage,
     OtherPlacePage,
     CapitalForecastPage
@@ -41,7 +39,6 @@ import { firebase }                     from '../config/firebase'
   entryComponents: [
     MyApp,
     HomePage,
-    NextWeekPage,
     ContactPage,
     OtherPlacePage,
     CapitalForecastPage

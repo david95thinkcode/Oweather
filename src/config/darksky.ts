@@ -3,3 +3,8 @@ export const darksky = {
     apiBaseUrl : 'https://api.darksky.net/forecast/',
     defaultLanguage : 'fr'
 }
+
+export const DarkSkyLanguages = {
+    French : 'fr',
+    English : 'en'
+}
