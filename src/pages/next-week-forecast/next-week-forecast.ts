@@ -1,55 +1,68 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-
-import { Geolocation }                      from '@ionic-native/geolocation';
-
-import { DarkSkyApiResponse }               from '../../models/darkskyapi-response.model';
+import { Component, OnInit }                   from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicNativeService }                  from    '../../services/ionicnative.service';
+import { Geolocation } from '@ionic-native/geolocation';
+import { DarkSkyApiService } from '../../services/darkskyapi.service';
+import { error } from '@firebase/database/dist/esm/src/core/util/util';
+import { IonicNativeGeoposition } from '../../models/ionicnative-geoposition.model';
 import { DarkSkyApiDataPoint }              from '../../models/darkskyapi-datapoint.model';
-import { DarkSkyApiDataBlock }              from '../../models/darkskyapi-datablock.model';
-import { IonicNativeGeoposition }           from '../../models/ionicnative-geoposition.model';
+import { DarkSkyApiDataBlock } from '../../models/darkskyapi-datablock.model';
+import { DarkSkyApiResponse } from '../../models/darkskyapi-response.model';
+import { DarkSkyLanguages } from '../../config/darksky';
+/**
+ * Generated class for the NextWeekForecastPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
-import { DarkSkyApiService }                from '../../services/darkskyapi.service';
-
+@IonicPage()
 @Component({
-  selector: 'page-nextweek',
-  templateUrl: 'nextweek.html'
+  selector: 'page-next-week-forecast',
+  templateUrl: 'next-week-forecast.html',
 })
-
-export class NextWeekPage {
+export class NextWeekForecastPage implements OnInit {
   
-  //Array to stock icon class
-  icon_class: string[];
-  //The language which the API will use to return data
+  nextWeekForcast: DarkSkyApiDataBlock = new DarkSkyApiDataBlock();
   defaultLang: string;
-  currentPosition: IonicNativeGeoposition = new IonicNativeGeoposition();
-  currentForecast: DarkSkyApiDataPoint = new DarkSkyApiDataPoint();
-  dailyForcastFornextWeek: DarkSkyApiDataBlock = new DarkSkyApiDataBlock();
-  
-  response: DarkSkyApiResponse = new DarkSkyApiResponse();
 
-  constructor(public navCtrl: NavController, private geolocation: Geolocation, private darkSkyApiService: DarkSkyApiService) {
-    this.defaultLang = "fr";
-    this.getCurrentPosition();
-    
-    this.darkSkyApiService.getCurrentForecast(this.currentPosition)
-    .then(fetched =>  {
-      this.response = fetched;
-      this.hydrate();
-    });    
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private ionicNative: IonicNativeService,
+    private darkProvider: DarkSkyApiService ) {
   }
 
-  /** Put value inside the variable response 
-   * to hydrate declared objects*/
-  private hydrate() {
-      this.currentForecast = this.response.currently;
-      this.currentForecast.placeName = this.response.timezone;
-      this.dailyForcastFornextWeek = this.response.daily;
+  ngOnInit() {
+    this.defaultLang = DarkSkyLanguages.French;
+    this.getNextWeekForecast();    
+  } 
+  
+  private getNextWeekForecast() {
+
+    this.ionicNative.GetMyLocation()
+    .then(location => {
+      this.darkProvider.getCurrentForecast(location)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.hydrate(response)
+        },
+        (error) => {
+          console.log('Something were wrong');
+        })
+    })
+    .catch(error => console.log('Failed to fetch response from API'))
+
+  }
+
+  private hydrate(response : DarkSkyApiResponse) {
+      // this.currentForecast = this.response.currently;
+      // this.currentForecast.placeName = this.response.timezone;
+      this.nextWeekForcast = response.daily;
+  
+      this.nextWeekForcast.data.splice(0,1); // Removing the first data cause it represents the current day (today)
       
-      //Removing the first data cause it represents today..
-      // not a day in the next week .
-      this.dailyForcastFornextWeek.data.splice(0,1);
-      
-      this.dailyForcastFornextWeek.data.forEach((element,index) => {       
+      this.nextWeekForcast.data.forEach((element,index) => {       
         this.hydrateDayProperty(index, element)
         this.setIconToEachForecast(element);
 
@@ -60,34 +73,10 @@ export class NextWeekPage {
         element.apparentTemperatureMin = this.convertToCelsius(element.apparentTemperatureMin);
         element.temperature = this.convertToCelsius(element.temperature);
       });
-      console.log(this.dailyForcastFornextWeek);
-  }
+      console.log(this.nextWeekForcast);
+  }  
 
-  /** Use Native Gelolcation to get device geoposition */
-  private getCurrentPosition() {
-    
-    this.geolocation.getCurrentPosition()
-    .then((response) => {
-      this.currentPosition.altitude = response.coords.altitude;
-      this.currentPosition.longitude = response.coords.longitude;
-      
-      /** WE DON'T NEED THE FOLLOWING INSTRUCTIONS
-       * If one day, we need it, just disable this comments
-       * this.currentPosition.accuracy = response.coords.accuracy;
-       * this.currentPosition.latitude = response.coords.latitude;
-       * this.currentPosition.speed = response.coords.speed;
-       * this.currentPosition.heading = response.coords.heading;
-       * this.currentPosition.altitudeAccuracy = response.coords.altitudeAccuracy;
-       */
-
-    })
-    .catch((error) => {
-      console.log('Error getting location ==> ', error);
-    });
-
-  }
-
-  /** FIll the property day of Forecast object with a 
+  /** Fill the property day of Forecast object with a 
    * readable day of week */
   private hydrateDayProperty(index: number, day: DarkSkyApiDataPoint) {
     
@@ -216,4 +205,5 @@ export class NextWeekPage {
 
     return fahr;
   }
+
 }
