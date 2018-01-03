@@ -24,12 +24,15 @@ export class CapitalForecastPage {
     this.capitalName = navparams.get('name');
 
     this.darkSkyApiService.getCurrentForecast(this.currentPosition)
-    .then(fetched =>  {
-      this.response = fetched;
-      this.hydrate();
-      this.setIconToForecast(this.response.currently.icon);
-    })
-    .catch(error => console.log('Fetching error'));
+    .subscribe(
+      (fetched) =>  {
+        this.response = fetched;
+        this.hydrate();
+        this.setIconToForecast(this.response.currently.icon);
+      },
+      (error) => {
+        console.log('ERRROOOOOOOOOOOOOR !')
+      });
   }
 
   /** Put value inside response to hydrate declared objects*/
