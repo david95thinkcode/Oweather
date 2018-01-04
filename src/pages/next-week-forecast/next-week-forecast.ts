@@ -1,14 +1,15 @@
 import { Component, OnInit }                   from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { IonicNativeService }                  from    '../../services/ionicnative.service';
-import { Geolocation } from '@ionic-native/geolocation';
-import { DarkSkyApiService } from '../../services/darkskyapi.service';
-import { error } from '@firebase/database/dist/esm/src/core/util/util';
-import { IonicNativeGeoposition } from '../../models/ionicnative-geoposition.model';
-import { DarkSkyApiDataPoint }              from '../../models/darkskyapi-datapoint.model';
-import { DarkSkyApiDataBlock } from '../../models/darkskyapi-datablock.model';
-import { DarkSkyApiResponse } from '../../models/darkskyapi-response.model';
-import { DarkSkyLanguages } from '../../config/darksky';
+import { DarkSkyApiService }                   from '../../services/darkskyapi.service';
+import { error }                               from '@firebase/database/dist/esm/src/core/util/util';
+import { DarkSkyApiDataPoint }                 from '../../models/darkskyapi-datapoint.model';
+import { DarkSkyApiDataBlock }                 from '../../models/darkskyapi-datablock.model';
+import { DarkSkyApiResponse }                  from '../../models/darkskyapi-response.model';
+import { DarkSkyLanguages }                    from '../../config/darksky';
+import { CONVERSION }                          from "../../shared/conversion.module";
+import { IconSetter }                          from "../../shared/icon-setter.module";
+
 /**
  * Generated class for the NextWeekForecastPage page.
  *
@@ -53,25 +54,22 @@ export class NextWeekForecastPage implements OnInit {
     })
     .catch(error => console.log('Failed to fetch response from API'))
 
-  }
+  } 
 
   private hydrate(response : DarkSkyApiResponse) {
       // this.currentForecast = this.response.currently;
       // this.currentForecast.placeName = this.response.timezone;
       this.nextWeekForcast = response.daily;
-  
       this.nextWeekForcast.data.splice(0,1); // Removing the first data cause it represents the current day (today)
       
+      // Loop
       this.nextWeekForcast.data.forEach((element,index) => {       
         this.hydrateDayProperty(index, element)
-        this.setIconToEachForecast(element);
-
-        //All temperature inside "element" is in Fahrenheit degree
-        //Let convert all temperature value from Fahrenheit to Celsius degree
-        element.apparentTemperature = this.convertToCelsius(element.apparentTemperature);
-        element.apparentTemperatureMax = this.convertToCelsius(element.apparentTemperatureMax);
-        element.apparentTemperatureMin = this.convertToCelsius(element.apparentTemperatureMin);
-        element.temperature = this.convertToCelsius(element.temperature);
+        IconSetter.setIconToEachForecast(element);
+        element.apparentTemperature = CONVERSION.convertToCelsius(element.apparentTemperature);
+        element.apparentTemperatureMax = CONVERSION.convertToCelsius(element.apparentTemperatureMax);
+        element.apparentTemperatureMin = CONVERSION.convertToCelsius(element.apparentTemperatureMin);
+        element.temperature = CONVERSION.convertToCelsius(element.temperature);
       });
       console.log(this.nextWeekForcast);
   }  
@@ -142,68 +140,4 @@ export class NextWeekForecastPage implements OnInit {
     }
     
   }
-
-  /**Fill the property icon_class with the right icon css class 
-   * The css class is refered to weather-icon.css
-  */
-  private setIconToEachForecast(element: DarkSkyApiDataPoint, ) {
-    switch (element.icon) {
-      case "clear-day":
-         element.css_icon_class = "sunny";
-        break;
-      case "clear-night":
-        element.css_icon_class = "moon";
-        break;
-      case "rain":
-        element.css_icon_class = "rainy";
-        break;
-      case "snow":
-        element.css_icon_class = "snow";
-        break;
-      case "sleet":
-        element.css_icon_class = "";
-        break;
-      case "wind":
-        element.css_icon_class = "";
-        break;
-      case "fog":
-        element.css_icon_class = "";
-        break;
-      case "cloudy":
-        element.css_icon_class = "cloudy";
-        break;
-      case "partly-cloudy-day":
-        element.css_icon_class = "partly-sunny";
-        break;
-      case "partly-cloudy-night":
-        element.css_icon_class = "cloudy-night";
-        break;
-      case "hail":
-        element.css_icon_class = "";
-        break;
-      case "thunderstorm":
-        element.css_icon_class = "thunderstorm";
-        break;
-      case "tornado":
-        element.css_icon_class = "";
-        break;
-      default:
-        break;
-    }
-  }
-
-  public convertToCelsius(fahrenheitValue: number): number {
-    let celsiusValue: number;
-    celsiusValue = (fahrenheitValue - 32) / 1.8;
-    
-    return celsiusValue;
-  }
-
-  public convertToFahrenheit(Celsius: number): number {
-    let fahr:number;
-    fahr = (Celsius * 1.8) + 32;
-
-    return fahr;
-  }
-
 }
