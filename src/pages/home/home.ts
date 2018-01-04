@@ -1,6 +1,5 @@
-import { Component, OnInit }                            from    '@angular/core';
+import { Component, OnInit }                    from    '@angular/core';
 import { NavController }                        from    'ionic-angular';
-import { Geolocation }                          from    '@ionic-native/geolocation';
 
 import { DarkSkyApiResponse }                   from    '../../models/darkskyapi-response.model';
 import { DarkSkyApiDataPoint }                  from    '../../models/darkskyapi-datapoint.model';
@@ -10,6 +9,7 @@ import { OtherPlacePage }                       from    '../../pages/otherplaces
 
 import { IonicNativeService }                   from    '../../services/ionicnative.service';
 import { DarkSkyApiService }                    from    '../../services/darkskyapi.service';
+import { CONVERSION }                           from    "../../shared/conversion.module";
 
 @Component({
   selector: 'page-home',
@@ -25,7 +25,6 @@ export class HomePage implements OnInit {
   forecastimage: string; //will store the location forecast picture
 
   constructor(public navCtrl: NavController,
-    private geolocation: Geolocation,
     private darkSkyApiService: DarkSkyApiService,
     private ionicnativeservice:IonicNativeService) {}
     
@@ -40,9 +39,10 @@ export class HomePage implements OnInit {
       this.darkSkyApiService.getCurrentForecast(this.currentPosition)
       .subscribe(
         (data) => {
-          //console.log(data);
           this.hydrate(data);
+          console.log(data);
           this.setIconToForecast(data.currently.icon);
+          console.log(this.forecastimage)
       },
       error => {
         console.log('Something were wrong');
@@ -52,10 +52,10 @@ export class HomePage implements OnInit {
   }
 
   /** Put required values inside response to hydrate declared objects*/
-  private hydrate(response: any) {
+  private hydrate(response: DarkSkyApiResponse) {
       this.currentForecast = response.currently;
-      this.currentForecast.apparentTemperature = this.convertToCelsius(this.currentForecast.apparentTemperature);
-      this.currentForecast.temperature = this.convertToCelsius(this.currentForecast.temperature);
+      this.currentForecast.apparentTemperature = CONVERSION.convertToCelsius(this.currentForecast.apparentTemperature);
+      this.currentForecast.temperature = CONVERSION.convertToCelsius(this.currentForecast.temperature);
       this.currentForecast.placeName = this.response.timezone;
       this.hourlyForcastFornextTwoDays = this.response.hourly;
   }
@@ -112,20 +112,6 @@ export class HomePage implements OnInit {
    */
   public showOtherLocations() {
     this.navCtrl.push(OtherPlacePage);
-  }
-
-  public convertToCelsius(fahrenheitValue: number): number {
-    let celsiusValue: number;
-    celsiusValue = (fahrenheitValue - 32) / 1.8;
-    
-    return celsiusValue;
-  } 
-
-  public convertToFahrenheit(Celsius: number): number {
-    let fahr:number;
-    fahr = (Celsius * 1.8) + 32;
-
-    return fahr;
   }
 
 }
