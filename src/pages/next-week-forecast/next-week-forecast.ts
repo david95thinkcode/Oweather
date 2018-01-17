@@ -9,6 +9,7 @@ import { DarkSkyApiResponse }                  from '../../models/darkskyapi-res
 import { DarkSkyLanguages }                    from '../../config/darksky';
 import { CONVERSION }                          from "../../shared/conversion.module";
 import { IconSetter }                          from "../../shared/icon-setter.module";
+import { IonicNativeGeoposition } from '../../models/ionicnative-geoposition.model';
 
 /**
  * Generated class for the NextWeekForecastPage page.
@@ -38,11 +39,12 @@ export class NextWeekForecastPage implements OnInit {
     this.getNextWeekForecast();    
   } 
   
+
   private getNextWeekForecast() {
 
     this.ionicNative.GetMyLocation()
     .then(location => {
-      this.darkProvider.getCurrentForecast(location)
+      this.darkProvider.getCurrentForecast(location as IonicNativeGeoposition)
       .subscribe(
         (response) => {
           console.log(response);
@@ -62,14 +64,16 @@ export class NextWeekForecastPage implements OnInit {
       this.nextWeekForcast = response.daily;
       this.nextWeekForcast.data.splice(0,1); // Removing the first data cause it represents the current day (today)
       
-      // Loop
+      // Loop for each element of next Week Forecast
       this.nextWeekForcast.data.forEach((element,index) => {       
-        this.hydrateDayProperty(index, element)
+        this.hydrateDayProperty(index, element);
         IconSetter.setIconToEachForecast(element);
         element.apparentTemperature = CONVERSION.convertToCelsius(element.apparentTemperature);
         element.apparentTemperatureMax = CONVERSION.convertToCelsius(element.apparentTemperatureMax);
         element.apparentTemperatureMin = CONVERSION.convertToCelsius(element.apparentTemperatureMin);
         element.temperature = CONVERSION.convertToCelsius(element.temperature);
+        element.temperatureMin = CONVERSION.convertToCelsius(element.temperatureMin);
+        element.temperatureMax = CONVERSION.convertToCelsius(element.temperatureMax);
       });
       console.log(this.nextWeekForcast);
   }  
