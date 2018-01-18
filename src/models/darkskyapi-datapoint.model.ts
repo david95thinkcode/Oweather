@@ -1,3 +1,9 @@
+
+/**
+ * A data point object contains various properties, each representing the average (unless otherwise specified) 
+ * of a particular weather phenomenon occurring during a period of time: an instant in the case of currently, 
+ * a minute for minutely, an hour for hourly, and a day for daily
+ */
 export class DarkSkyApiDataPoint {
     placeName: string;
     icon: string;
@@ -8,8 +14,10 @@ export class DarkSkyApiDataPoint {
     nearestStormDistance: number;
     precipIntensity: number;
     precipIntensityError: number;
-    precipProbability: number;    
+    precipProbability: number;  
 
+    temperatureMax: number;
+    temperatureMin: number;
     apparentTemperature: number;
     apparentTemperatureMax: number;
     apparentTemperatureMaxTime: number;

@@ -5,16 +5,24 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="black">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title text-center>Next Week Forecast</ion-title>
-  </ion-navbar>
+  <ion-toolbar color="primary">
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Next Week Forecast</ion-title>
+    </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
+
+  <ion-card>
+    <ion-card-content>
+      <h2 text-center> {{ nextWeekForcast.summary }} </h2>
+    </ion-card-content>
+  </ion-card>
   <ion-list>
     <ion-item class="ionitems" *ngFor="let day of nextWeekForcast.data" class="">
         <i class="{{ day.css_icon_class }}" item-start></i>     

@@ -17,11 +17,11 @@ import { CONVERSION }                           from    "../../shared/conversion
 })
 
 export class HomePage implements OnInit {
-
+  
+  response: DarkSkyApiResponse = new DarkSkyApiResponse();
   currentPosition: IonicNativeGeoposition = new IonicNativeGeoposition();
   currentForecast: DarkSkyApiDataPoint = new DarkSkyApiDataPoint();
   hourlyForcastFornextTwoDays: DarkSkyApiDataBlock = new DarkSkyApiDataBlock();
-  response: DarkSkyApiResponse = new DarkSkyApiResponse();
   forecastimage: string; //will store the location forecast picture
 
   constructor(public navCtrl: NavController,
@@ -41,8 +41,10 @@ export class HomePage implements OnInit {
         (data) => {
           this.hydrate(data);
           console.log(data);
-          this.setIconToForecast(data.currently.icon);
-          console.log(this.forecastimage)
+          
+          // Two behind is not working yet
+          this.setImageToForecast(data.currently.icon);
+          //console.log(this.forecastimage)
       },
       error => {
         console.log('Something were wrong');
@@ -54,17 +56,21 @@ export class HomePage implements OnInit {
   /** Put required values inside response to hydrate declared objects*/
   private hydrate(response: DarkSkyApiResponse) {
       this.currentForecast = response.currently;
+      console.log(this.currentForecast)
       this.currentForecast.apparentTemperature = CONVERSION.convertToCelsius(this.currentForecast.apparentTemperature);
       this.currentForecast.temperature = CONVERSION.convertToCelsius(this.currentForecast.temperature);
       this.currentForecast.placeName = this.response.timezone;
       this.hourlyForcastFornextTwoDays = this.response.hourly;
+      
+      //console.log(this.hourlyForcastFornextTwoDays)
   }
 
   /**Set the right picture location to forecasimage according to the iconstring */
-  private setIconToForecast(iconstring: string ) {
+  private setImageToForecast(iconstring: string ) {
     switch (iconstring) {
       case "clear-day":
-         this.forecastimage = "assets/img/sunny.png";
+          this.forecastimage =  "assets/img/cleary-day.png"
+         //this.forecastimage = "assets/img/sunny.png";
         break;
       case "clear-night":
         this.forecastimage = "";

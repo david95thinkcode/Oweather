@@ -8,7 +8,7 @@ export module IconSetter {
 
     /**Fill the property icon_class with the right icon css class
        * The css class is refered to weather-icon.css
-      */
+    */
     export function setIconToEachForecast(element : DarkSkyApiDataPoint) {
         switch (element.icon) {
             case "clear-day":

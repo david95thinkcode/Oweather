@@ -27,7 +27,7 @@ export class DarkSkyApiService {
         let parameters: string = '';
         let language = `lang=${darksky.defaultLanguage}`;
         
-        if (origins.latitude == undefined || origins.latitude==undefined) { 
+        if (origins.latitude == undefined || origins.latitude == undefined) { 
             console.log("Real position not get");
             //On utilisera des valeurs par défaut (de Cotonou) en attendant que le problème d'origins soit réglé
             let or : IonicNativeGeoposition = new IonicNativeGeoposition();
@@ -39,13 +39,11 @@ export class DarkSkyApiService {
             parameters = `${origins.latitude},${origins.longitude}?${language}`;
         }
         const url = darksky.apiBaseUrl + darksky.apiKey +'/'+parameters;
-        
+        console.log(url);
         return this.http.get<DarkSkyApiResponse>(url)
         .pipe(
             tap (
-                (data) => { 
-                //console.log(data) 
-                }
+                (data) => { }
             ),
             catchError(this.handleError<DarkSkyApiResponse>('getForecast'))
         );

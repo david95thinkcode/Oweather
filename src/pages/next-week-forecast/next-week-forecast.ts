@@ -9,6 +9,8 @@ import { DarkSkyApiResponse }                  from '../../models/darkskyapi-res
 import { DarkSkyLanguages }                    from '../../config/darksky';
 import { CONVERSION }                          from "../../shared/conversion.module";
 import { IconSetter }                          from "../../shared/icon-setter.module";
+import { ReadableDay }                         from '../../shared/readableday.module';
+import { IonicNativeGeoposition }              from '../../models/ionicnative-geoposition.model';
 
 /**
  * Generated class for the NextWeekForecastPage page.
@@ -30,19 +32,19 @@ export class NextWeekForecastPage implements OnInit {
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     private ionicNative: IonicNativeService,
-    private darkProvider: DarkSkyApiService ) {
-  }
+    private darkProvider: DarkSkyApiService ) { }
 
   ngOnInit() {
     this.defaultLang = DarkSkyLanguages.French;
     this.getNextWeekForecast();    
   } 
   
+
   private getNextWeekForecast() {
 
     this.ionicNative.GetMyLocation()
     .then(location => {
-      this.darkProvider.getCurrentForecast(location)
+      this.darkProvider.getCurrentForecast(location as IonicNativeGeoposition)
       .subscribe(
         (response) => {
           console.log(response);
@@ -62,82 +64,20 @@ export class NextWeekForecastPage implements OnInit {
       this.nextWeekForcast = response.daily;
       this.nextWeekForcast.data.splice(0,1); // Removing the first data cause it represents the current day (today)
       
-      // Loop
-      this.nextWeekForcast.data.forEach((element,index) => {       
-        this.hydrateDayProperty(index, element)
+      // Loop for each element of next Week Forecast
+      this.nextWeekForcast.data.forEach((element,index) => {
+        
+        element.readableday = ReadableDay.getReadableDayByIndex(index, this.defaultLang)
         IconSetter.setIconToEachForecast(element);
+        
+        // Below, we convert all needed temperature to Celcius
         element.apparentTemperature = CONVERSION.convertToCelsius(element.apparentTemperature);
         element.apparentTemperatureMax = CONVERSION.convertToCelsius(element.apparentTemperatureMax);
         element.apparentTemperatureMin = CONVERSION.convertToCelsius(element.apparentTemperatureMin);
         element.temperature = CONVERSION.convertToCelsius(element.temperature);
+        element.temperatureMin = CONVERSION.convertToCelsius(element.temperatureMin);
+        element.temperatureMax = CONVERSION.convertToCelsius(element.temperatureMax);
       });
       console.log(this.nextWeekForcast);
-  }  
-
-  /** Fill the property day of Forecast object with a 
-   * readable day of week */
-  private hydrateDayProperty(index: number, day: DarkSkyApiDataPoint) {
-    
-    switch (this.defaultLang) {
-      case "en":
-        switch (index) {
-          case 0:
-            day.readableday = "Monday";
-            break;
-          case 1:
-            day.readableday = "Tuesday";
-            break;
-          case 2:
-            day.readableday = "Wednesday"
-            break;
-          case 3:
-            day.readableday = "Thusday";
-            break;
-          case 4:
-            day.readableday = "Friday";
-            break;
-          case 5:
-            day.readableday = "Saturday";
-            break;
-          case 6:
-            day.readableday = "Sunday";
-            break;
-          default:
-            break;
-        }        
-      break;
-      case "fr":
-        switch (index) {
-          case 0:
-            day.readableday = "Lundi";
-            break;
-          case 1:
-            day.readableday = "Mardi";
-            break;
-          case 2:
-            day.readableday = "Mercredi";
-            break;
-          case 3:
-            day.readableday = "Jeudi";
-            break;
-          case 4:
-            day.readableday = "Vendredi";
-            break;
-          case 5:
-            day.readableday = "Samedi";
-            break;
-          case 6:
-            day.readableday = "Dimanche";
-            break;
-          default:
-            break;
-        }
-        break; // fr
-    
-    //default language
-      default:
-        break;
-    }
-    
   }
 }
