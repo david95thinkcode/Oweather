@@ -1,17 +1,19 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>
-      Ailleurs
-    </ion-title>
-  </ion-navbar>
+  <ion-toolbar color='primary'>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        Ailleurs
+      </ion-title>
+    </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-<!-- <ion-searchbar 
+  <!-- <ion-searchbar 
     [(ngModel)]="myInput"
     [showCancelButton]="shouldShowCancel"
     (ionInput)="onInput($event)"
@@ -20,8 +22,8 @@
   -->
 
   <ion-list>
-    <button ion-item *ngFor="let item of capitals | async " (tap)="showForecast(item.CapitalLatitude, item.CapitalLongitude, item.CapitalName)">
-    <strong>{{ item.CapitalName }}</strong>, {{ item.CountryName }}
-    </button>    
+    <button ion-item *ngFor="let item of capitals " (tap)="showForecast(item.CapitalLatitude, item.CapitalLongitude, item.CapitalName)">
+      <strong>{{ item.CapitalName }}</strong>, {{ item.CountryName }}
+    </button>
   </ion-list>
 </ion-content>

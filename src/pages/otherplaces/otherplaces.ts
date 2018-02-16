@@ -1,10 +1,10 @@
 import { Component }                    from '@angular/core';
 import { NavController }                from 'ionic-angular';
-import { AngularFireDatabase }  from 'angularfire2/database';
 
-import { IonicNativeGeoposition }                       from    '../../models/ionicnative-geoposition.model';
-import { CapitalForecastPage }                          from    '../../pages/capitalforecast/capitalforecast';
-import { Observable } from "rxjs/Observable";
+import { IonicNativeGeoposition }       from    '../../models/ionicnative-geoposition.model';
+import { CapitalForecastPage }          from    '../../pages/capitalforecast/capitalforecast';
+import { Observable }                   from "rxjs/Observable";
+import { CAPITALS }                     from   '../../config/capitals';
 
 @Component({
   selector: 'page-otherplaces',
@@ -13,13 +13,10 @@ import { Observable } from "rxjs/Observable";
 
 export class OtherPlacePage {
   
-  capitals: Observable<any>;  
+  capitals : any;
 
-  constructor(public navCtrl: NavController, afDB: AngularFireDatabase) {
-    //PS: The list of countries capital is on Firebase
-    //Loading capitals from firebase 
-    //And putting it to variable "capitals"
-    this.capitals = afDB.list('/capital').valueChanges();
+  constructor(public navCtrl: NavController) {
+    this.capitals = CAPITALS;
   }
 
   /**Open CapitalForecastPage and pass into it the position on capital witch user select */
