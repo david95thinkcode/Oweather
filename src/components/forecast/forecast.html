@@ -1,0 +1,90 @@
+<div *ngIf="online; else offline">
+  <ion-card class="pcard">
+    <img src="{{forecastimage}}" alt="">
+    <ion-card-content text-center>
+      <h1> {{ currentForecast.temperature | number:'.1-1' }}° C</h1>
+      <p> {{ currentForecast.summary }} </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card text-center class="">
+          <ion-card-header>
+            <ion-icon name="water" item-start></ion-icon>
+          </ion-card-header>
+          <ion-card-content text-center>
+            <h2>
+              {{ currentForecast.humidity | percent}}
+            </h2>
+            <p> Humidité</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card text-center class="">
+          <ion-card-header>
+            <ion-icon name="flag" item-start></ion-icon>
+          </ion-card-header>
+          <ion-card-content text-center>
+            <h2>{{ currentForecast.windSpeed }} km/h </h2>
+            <p>Vent</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card text-center class="">
+          <ion-card-header>
+            <ion-icon name="flag" item-start></ion-icon>
+          </ion-card-header>
+          <ion-card-content text-center>
+            <p>Ciel couvert à </p>
+            <h2>{{ currentForecast.cloudCover | percent }} </h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card text-center class="">
+          <ion-card-header>
+            <ion-icon ios="ios-thermometer" md="md-thermometer"></ion-icon>
+          </ion-card-header>
+          <ion-card-content text-center>
+            <p> Température ambiante</p>
+            <h2>
+              {{ currentForecast.apparentTemperature | number:'.1-1'}}°C
+            </h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <h1 text-center> SOYEZ PRÊT </h1>
+
+  <ion-card class="annonce">
+    <ion-card-content text-center>
+      <h2>
+        Une précipitation de type
+        <span class="precipType">{{ currentForecast.precipType }}</span>
+        est annoncée avec une probabilité de
+        <br>
+        <span class="precipeProba"> {{ currentForecast.precipProbability | percent }} </span>
+      </h2>
+    </ion-card-content>
+  </ion-card>
+
+  <p text-center>
+    <button ion-button round center (tap)="showOtherLocations()">Ailleurs</button>
+  </p>
+
+</div>
+
+<ng-template #offline>
+  <offline-message></offline-message>
+</ng-template>

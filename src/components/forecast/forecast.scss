@@ -1,0 +1,57 @@
+forecast {
+    .content-md {
+        //background-image: url('img/home.jpg');
+        background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+    }
+
+    .card-md {
+        background: transparent;
+    }
+
+    .pcard {
+        background: transparent;
+        box-shadow: none;
+
+        .item-md {
+            background: none;
+        }
+
+        h1 {
+            font-size: xx-large;
+            font-size: -webkit-xxx-large;
+            font-weight: lighter;
+            
+        }
+    }
+
+    .precipType {
+        color: orangered;
+    }
+
+    .precipeProba {
+        color: orangered;
+        font-size: x-large;
+    }
+
+    .annonce {
+        //background-image: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
+    }
+
+    .annonce>ion-card-content {
+        color: white;
+    }
+
+    ion-col {
+        .card-md {
+            background-color: #30E3CA;
+            box-shadow: none;
+            border-radius: 80%;
+            min-height: 145px;
+            max-height: 145px;
+
+             h2 {
+                 font-size: x-large;
+             }
+        }
+    }
+}

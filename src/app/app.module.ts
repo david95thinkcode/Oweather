@@ -20,6 +20,8 @@ import { DarkSkyApiService }            from '../services/darkskyapi.service';
 import { IonicNativeService}            from '../services/ionicnative.service'
 import { firebase }                     from '../config/firebase'
 
+import { ComponentsModule }            from '../components/components.module';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -33,7 +35,8 @@ import { firebase }                     from '../config/firebase'
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,7 +44,7 @@ import { firebase }                     from '../config/firebase'
     HomePage,
     ContactPage,
     OtherPlacePage,
-    CapitalForecastPage
+    CapitalForecastPage,
   ],
   providers: [
     Geolocation,
