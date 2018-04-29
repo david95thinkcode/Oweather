@@ -34,7 +34,6 @@ export class CapitalForecastPage {
   }
 
   private hydrate(response : DarkSkyApiResponse) {
-      console.log(response);
       this.currentForecast = response.currently;
       this.currentForecast.placeName = response.timezone;
       this.currentForecast.apparentTemperature = CONVERSION.convertToCelsius(this.currentForecast.apparentTemperature);

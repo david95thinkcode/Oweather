@@ -39,7 +39,7 @@ export class DarkSkyApiService {
             parameters = `${origins.latitude},${origins.longitude}?${language}`;
         }
         const url = darksky.apiBaseUrl + darksky.apiKey +'/'+parameters;
-        console.log(url);
+        
         return this.http.get<DarkSkyApiResponse>(url)
         .pipe(
             tap (
@@ -63,7 +63,6 @@ export class DarkSkyApiService {
         };
       }
       
-      /** Log a HeroService message with the MessageService */
       private log(message: string) {
         console.log('DarkSkyApiService: ' + message);
       }

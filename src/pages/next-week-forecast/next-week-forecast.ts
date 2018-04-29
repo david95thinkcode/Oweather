@@ -26,6 +26,7 @@ import { IonicNativeGeoposition }              from '../../models/ionicnative-ge
 })
 export class NextWeekForecastPage implements OnInit {
   
+  online: boolean = false;
   nextWeekForcast: DarkSkyApiDataBlock = new DarkSkyApiDataBlock();
   defaultLang: string;
 
@@ -35,8 +36,10 @@ export class NextWeekForecastPage implements OnInit {
     private darkProvider: DarkSkyApiService ) { }
 
   ngOnInit() {
-    this.defaultLang = DarkSkyLanguages.French;
-    this.getNextWeekForecast();    
+    this.defaultLang = DarkSkyLanguages.French;    
+    if (this.online) {
+      this.getNextWeekForecast();
+    }        
   } 
   
 
